@@ -9,7 +9,7 @@ class Faixa extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'album_id'];
+    protected $fillable = ['name', 'album_id','duracao'];
 
     public function album()
     {

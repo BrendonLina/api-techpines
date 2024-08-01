@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('faixas', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->foreignId('album_id')->constrained()->onDelete('cascade');
+            $table->integer('duracao')->nullable();
             $table->timestamps();
         });
     }
