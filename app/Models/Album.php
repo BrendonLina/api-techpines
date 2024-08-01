@@ -11,7 +11,7 @@ class Album extends Model
 
     protected $fillable = ['name','artista','data_lancamento'];
 
-    public function tracks()
+    public function faixas()
     {
         return $this->hasMany(Faixa::class);
     }

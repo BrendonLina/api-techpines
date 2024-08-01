@@ -25,5 +25,5 @@ Route::get('albums/search', [AlbumController::class, 'search']);
 Route::post('albums', [AlbumController::class, 'store']);
 Route::delete('albums/{album}', [AlbumController::class, 'destroy']);
 
-Route::post('albums/{album}/faixas', [FaixaController::class, 'store']);
+Route::post('albums/{albumId}/faixas', [FaixaController::class, 'store']);
 Route::delete('faixas/{faixa}', [FaixaController::class, 'destroy']);

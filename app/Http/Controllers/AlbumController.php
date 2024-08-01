@@ -13,13 +13,27 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        return Album::with('tracks')->get();
+        return Album::with('faixas')->get();
     }
 
     public function search(Request $request)
     {
-        $query = $request->input('query');
-        return Album::where('name', 'like', "%$query%")->with('tracks')->get();
+        $search = $request->input('search');
+
+    
+        if (!$search) {
+            return response()->json(Album::all());
+        }
+
+    
+        $albums = Album::where('name', $search)->get();
+
+    
+        if ($albums->isEmpty()) {
+            return response()->json(['message' => '0 resultados na busca.'], 404);
+        }
+
+        return response()->json($albums);
     }
 
     /**
@@ -38,12 +52,12 @@ class AlbumController extends Controller
         try {
             $request->validate([
                 'name' => 'required',
-                'artist' => 'nullable|string',
-                'release_date' => 'nullable|date'
+                'artista' => 'nullable|string',
+                'data_lancamento' => 'nullable|date'
             ], [
                 'name.required' => 'Nome do álbum é obrigatório.',
                 'artist.string' => 'O nome do artista deve ser uma string.',
-                'release_date.date' => 'A data de lançamento deve ser uma data válida.'
+                'data_lancamento.date' => 'A data de lançamento deve ser uma data válida ex: 2024-01-31.'
             ]);
 
             $album = Album::create($request->all());
